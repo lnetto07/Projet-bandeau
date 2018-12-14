@@ -5,28 +5,31 @@
  */
 package bandeau;
 
+import java.lang.Math;
 /**
  *
  * @author lnetto
  */
-public class Zoom extends Effet {
+public class Turn extends Effet {
     
-    public int coefficient;
+    public int sens;
+    public double teta;
     
-    public Zoom(int coef, String texte){
+    public Turn(String texte, int s, int tet) {
         super(texte);
-        this.coefficient=coef;
+        this.sens=s;
+        this.teta=tet;
+        
     }
 
     @Override
     void afficheToiSur(Bandeau b) {
         b.setMessage(texte);
-        b.sleep(500);
-        int a= b.getFont().getSize();
-        for (int i = a; i < a*coefficient ; i+=2) {
-            b.setFont(b.getFont().deriveFont((float)i));
-            b.sleep(100);
-	}
+        double d=Math.toRadians((double)teta);
+	for (int i = 0; i <= 50; i++) {
+		b.setRotation((sens*d*i/50));
+		b.sleep(50);
     }
     
+}
 }
